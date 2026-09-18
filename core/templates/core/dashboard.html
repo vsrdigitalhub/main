@@ -1,0 +1,70 @@
+{% extends "core/base.html" %}
+{% block title %}Your Dashboard — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<div class="dash-wrap">
+  <div class="container">
+    <div class="dash-head">
+      <div>
+        <h1>Welcome, {{ user.first_name|default:user.username }} 👋</h1>
+        <p>This is your private customer panel — everything here is tied to your VSR account.</p>
+      </div>
+      <a href="{% url 'profile_update' %}" class="btn btn-ghost">Edit profile</a>
+    </div>
+
+    <div class="dash-grid">
+      <div class="profile-card">
+        <div class="profile-avatar">{{ user.username|slice:":1"|upper }}</div>
+        <h3 style="font-size:1.1rem;">{{ user.get_full_name|default:user.username }}</h3>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-top:4px;">Customer since {{ user.date_joined_hub|date:"M Y" }}</p>
+
+        <div style="margin-top:20px;">
+          <div class="profile-field"><span>Username</span><span>{{ user.username }}</span></div>
+          <div class="profile-field"><span>Email</span><span>{{ user.email|default:"—" }}</span></div>
+          <div class="profile-field"><span>Phone</span><span>{{ user.phone_number|default:"—" }}</span></div>
+          <div class="profile-field"><span>Company</span><span>{{ user.company_name|default:"—" }}</span></div>
+          <div class="profile-field"><span>Address</span><span>{{ user.address|default:"—" }}</span></div>
+        </div>
+      </div>
+
+      <div style="display:grid; gap:24px;">
+        <div class="panel">
+          <h3>Request a service</h3>
+          <form method="post" style="display:grid; gap:14px;">
+            {% csrf_token %}
+            <div class="form-row">
+              <div>
+                <label class="field-label">Service</label>
+                {{ inquiry_form.service }}
+              </div>
+              <div>
+                <label class="field-label">Details</label>
+                {{ inquiry_form.details }}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="justify-self:start;">Submit request</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h3>Your requests</h3>
+          {% if inquiries %}
+            {% for inquiry in inquiries %}
+              <div class="inquiry-row">
+                <div>
+                  <strong style="font-size:0.94rem;">{{ inquiry.service|default:"General request" }}</strong>
+                  <p style="color:var(--text-muted); font-size:0.85rem; margin-top:4px;">{{ inquiry.details|default:"No extra details provided." }}</p>
+                  <p style="color:var(--text-faint); font-size:0.78rem; margin-top:4px;">{{ inquiry.created_at|date:"d M Y, H:i" }}</p>
+                </div>
+                <span class="badge {% if inquiry.status == 'completed' %}completed{% endif %}">{{ inquiry.get_status_display }}</span>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="empty-state">You haven't submitted any requests yet — use the form above to raise your first one.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

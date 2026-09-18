@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Create your account — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card" style="max-width:480px;">
+    <a href="{% url 'home' %}" class="brand">
+      <img src="{% static 'core/images/vsr_logo.jpeg' %}" alt="VSR Digital Hub logo">
+    </a>
+    <h1>Join VSR Digital Hub</h1>
+    <p class="sub">Create your customer account to request services and track projects.</p>
+
+    <form class="auth-form" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div>
+          <label class="field-label">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<div class="field-errors">{{ field.errors|join:", " }}</div>{% endif %}
+          {% if field.help_text %}<div class="field-errors" style="color:var(--text-faint);">{{ field.help_text }}</div>{% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary btn-block">Create account</button>
+    </form>
+
+    <div class="auth-foot">
+      Already have an account? <a href="{% url 'login' %}">Log in</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

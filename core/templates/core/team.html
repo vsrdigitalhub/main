@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block title %}Our Team — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow">The People Behind VSR</span>
+    <h1>Meet the Team</h1>
+    <p>Click through to any profile to learn more about who you'll be working with.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="grid-3">
+      {% for member in team_members %}
+      <a href="{{ member.get_absolute_url }}" class="card team-card">
+        <div class="team-avatar">{{ member.initials }}</div>
+        <h3>{{ member.name }}</h3>
+        <p class="role">{{ member.role }}</p>
+        <p class="bio">{{ member.short_bio }}</p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

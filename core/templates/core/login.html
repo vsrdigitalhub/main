@@ -1,0 +1,37 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Log in — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <a href="{% url 'home' %}" class="brand">
+      <img src="{% static 'core/images/vsr_logo.jpeg' %}" alt="VSR Digital Hub logo">
+    </a>
+    <h1>Welcome back</h1>
+    <p class="sub">Log in to your VSR Digital Hub customer panel.</p>
+
+    <form class="auth-form" method="post">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="alert alert-error">{{ form.non_field_errors }}</div>
+      {% endif %}
+      <div>
+        <label class="field-label">Username</label>
+        {{ form.username }}
+        {% if form.username.errors %}<div class="field-errors">{{ form.username.errors|join:", " }}</div>{% endif %}
+      </div>
+      <div>
+        <label class="field-label">Password</label>
+        {{ form.password }}
+        {% if form.password.errors %}<div class="field-errors">{{ form.password.errors|join:", " }}</div>{% endif %}
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+
+    <div class="auth-foot">
+      New to VSR Digital Hub? <a href="{% url 'signup' %}">Create an account</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

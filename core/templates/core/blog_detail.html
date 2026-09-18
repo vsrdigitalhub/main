@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+{% block title %}{{ post.title }} — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top:28px;">
+  <div class="breadcrumbs">
+    <a href="{% url 'home' %}">Home</a> / <a href="{% url 'blog' %}">Blog</a> / <span>{{ post.title }}</span>
+  </div>
+</div>
+
+<div class="container detail-wrap" style="max-width:760px;">
+  <span class="eyebrow">{{ post.category }}</span>
+  <h1 style="margin-top:12px;">{{ post.title }}</h1>
+  <p class="detail-meta">{% if post.author %}By {{ post.author.name }} · {% endif %}{{ post.published_at|date:"d M Y" }}</p>
+
+  <div class="blog-post-body" style="margin-top:28px;">
+    {% for para in post.content.splitlines %}
+      {% if para %}<p>{{ para }}</p>{% endif %}
+    {% endfor %}
+  </div>
+
+  {% if related %}
+  <div class="related-strip">
+    <h3>More from the blog</h3>
+    <div class="blog-grid">
+      {% for item in related %}
+      <a href="{{ item.get_absolute_url }}" class="blog-card">
+        <div class="blog-card-cover">{% include "core/_icon.html" with name="design" size=32 %}</div>
+        <div class="blog-card-body">
+          <span class="cat">{{ item.category }}</span>
+          <h3>{{ item.title }}</h3>
+          <p class="excerpt">{{ item.excerpt }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

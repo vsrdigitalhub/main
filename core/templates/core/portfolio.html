@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+{% block title %}Our Work — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Our Work</span>
+    <h1>Projects We're Proud Of</h1>
+    <p>A look at real work delivered through the hub. Click into any project for the full case study.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="portfolio-grid">
+      {% for project in portfolio_items %}
+      <a href="{{ project.get_absolute_url }}" class="portfolio-card">
+        <div class="portfolio-cover">{% include "core/_icon.html" with name=project.icon size=44 %}</div>
+        <div class="portfolio-card-body">
+          <span class="tag">{{ project.category }}</span>
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.summary }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

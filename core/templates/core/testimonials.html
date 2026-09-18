@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+{% block title %}Testimonials — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Client Love</span>
+    <h1>What Our Clients Say</h1>
+    <p>Real feedback from businesses that have worked with the VSR Digital Hub team.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="grid-3">
+      {% for t in testimonials %}
+      <div class="testimonial-card">
+        <div class="stars">{% for s in t.stars %}★{% endfor %}</div>
+        <p class="quote">"{{ t.quote }}"</p>
+        <div class="client">
+          <div class="team-avatar">{{ t.client_name|slice:":1"|upper }}</div>
+          <div>
+            <div class="client-name">{{ t.client_name }}</div>
+            {% if t.client_role %}<div class="client-role">{{ t.client_role }}</div>{% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="section-link-row">
+      <a href="{% url 'contact' %}" class="btn btn-primary">Become Our Next Success Story</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

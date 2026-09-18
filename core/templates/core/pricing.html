@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+{% block title %}Pricing — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Simple, Transparent Pricing</span>
+    <h1>Plans for Every Stage</h1>
+    <p>No hidden fees. Pick a starting point, or contact us for a custom quote combining multiple services.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="pricing-grid">
+      {% for plan in plans %}
+      <div class="pricing-card {% if plan.is_featured %}featured{% endif %}">
+        <h3>{{ plan.name }}</h3>
+        <div class="price">{{ plan.price }} <span>/ {{ plan.billing_period }}</span></div>
+        {% if plan.description %}<p class="desc">{{ plan.description }}</p>{% endif %}
+        <ul class="feature-checklist">
+          {% for feature in plan.feature_list %}
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+            {{ feature }}
+          </li>
+          {% endfor %}
+        </ul>
+        <a href="{% url 'contact' %}" class="btn {% if plan.is_featured %}btn-primary{% else %}btn-ghost{% endif %} btn-block">Get Started</a>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="section-link-row">
+      <p style="color:var(--text-muted); font-size:0.9rem;">Need something custom? <a href="{% url 'contact' %}" style="color:var(--cyan); font-weight:600;">Talk to us about a tailored plan →</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}

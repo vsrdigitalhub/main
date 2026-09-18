@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block title %}Edit Profile — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card" style="max-width:480px;">
+    <h1>Edit your profile</h1>
+    <p class="sub">Updates are saved straight to your MySQL account record.</p>
+
+    <form class="auth-form" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div>
+          <label class="field-label">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<div class="field-errors">{{ field.errors|join:", " }}</div>{% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary btn-block">Save changes</button>
+    </form>
+
+    <div class="auth-foot">
+      <a href="{% url 'dashboard' %}">← Back to dashboard</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

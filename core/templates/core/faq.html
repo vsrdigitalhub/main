@@ -1,0 +1,49 @@
+{% extends "core/base.html" %}
+{% block title %}FAQ — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Good to Know</span>
+    <h1>Frequently Asked Questions</h1>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>How do I become a member of VSR Digital Hub?</summary>
+        <div class="faq-body">Click "Join Hub", fill in your details, and your account is created instantly — no approval wait.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Where can I track my project requests?</summary>
+        <div class="faq-body">Every request you raise appears on your customer dashboard along with its current status.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What services does VSR Digital Hub offer?</summary>
+        <div class="faq-body">Web development, UI/UX design, digital marketing, video editing, branding, and freelance community support — see the full list on our Services page.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is my account information secure?</summary>
+        <div class="faq-body">Yes. Passwords are hashed and all account data is stored in a secured MySQL database, never in plain text.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How much does a project cost?</summary>
+        <div class="faq-body">It depends on scope — check our Pricing page for starting packages, or contact us for a custom quote.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I request more than one service at a time?</summary>
+        <div class="faq-body">Yes — raise as many requests as you like from your dashboard, and each one is tracked separately.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I get in touch with the team?</summary>
+        <div class="faq-body">Use the Contact page, email us directly, or raise a request from your dashboard if you're already a member.</div>
+      </details>
+    </div>
+    <div class="section-link-row">
+      <p style="color:var(--text-muted); font-size:0.9rem;">Still have questions? <a href="{% url 'contact' %}" style="color:var(--cyan); font-weight:600;">Contact us →</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,314 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <div>
+      <span class="eyebrow">Digital Hub for Growing Brands</span>
+      <h1>Design. Develop. <span class="accent">Deliver.</span><br>All under one hub.</h1>
+      <p class="lead">
+        VSR Digital Hub brings design, development, and marketing specialists
+        together so your business gets one point of contact and one
+        connected team — not five different freelancers.
+      </p>
+      <div class="hero-actions">
+        <a href="{% url 'signup' %}" class="btn btn-primary">Join VSR Digital Hub</a>
+        <a href="#services" class="btn btn-ghost">Explore Services</a>
+      </div>
+    </div>
+
+    <div class="hub-graphic">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hubGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#34e0ef"/>
+            <stop offset="100%" stop-color="#8b7cf6"/>
+          </linearGradient>
+        </defs>
+        {% comment %} routes {% endcomment %}
+        <g stroke="url(#hubGrad)" stroke-width="1.4" opacity="0.55" fill="none">
+          <path d="M200,200 L200,60"/>
+          <path d="M200,200 L330,130"/>
+          <path d="M200,200 L330,270"/>
+          <path d="M200,200 L200,340"/>
+          <path d="M200,200 L70,270"/>
+          <path d="M200,200 L70,130"/>
+        </g>
+        {% comment %} outer nodes {% endcomment %}
+        <g font-family="Space Grotesk, sans-serif" font-size="11" fill="#93a0c2">
+          <circle cx="200" cy="60" r="26" fill="#10182c" stroke="#34e0ef" stroke-width="1.6"/>
+          <text x="200" y="64" text-anchor="middle" fill="#eef2ff">UI</text>
+
+          <circle cx="330" cy="130" r="26" fill="#10182c" stroke="#8b7cf6" stroke-width="1.6"/>
+          <text x="330" y="134" text-anchor="middle" fill="#eef2ff">Dev</text>
+
+          <circle cx="330" cy="270" r="26" fill="#10182c" stroke="#34e0ef" stroke-width="1.6"/>
+          <text x="330" y="274" text-anchor="middle" fill="#eef2ff">Ads</text>
+
+          <circle cx="200" cy="340" r="26" fill="#10182c" stroke="#8b7cf6" stroke-width="1.6"/>
+          <text x="200" y="344" text-anchor="middle" fill="#eef2ff">SEO</text>
+
+          <circle cx="70" cy="270" r="26" fill="#10182c" stroke="#34e0ef" stroke-width="1.6"/>
+          <text x="70" y="274" text-anchor="middle" fill="#eef2ff">Video</text>
+
+          <circle cx="70" cy="130" r="26" fill="#10182c" stroke="#8b7cf6" stroke-width="1.6"/>
+          <text x="70" y="134" text-anchor="middle" fill="#eef2ff">Brand</text>
+        </g>
+        {% comment %} center hub — matches logo cube {% endcomment %}
+        <g>
+          <circle cx="200" cy="200" r="52" fill="url(#hubGrad)" opacity="0.16"/>
+          <rect x="170" y="170" width="60" height="60" rx="14" fill="#10182c" stroke="url(#hubGrad)" stroke-width="2"/>
+          <path d="M182,182 L200,208 L218,182" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="192" y="205" width="16" height="16" rx="3" fill="#34e0ef"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="stats-strip">
+      <div class="stat-card"><div class="num">120+</div><div class="label">Projects Delivered</div></div>
+      <div class="stat-card"><div class="num">60+</div><div class="label">Happy Clients</div></div>
+      <div class="stat-card"><div class="num">15+</div><div class="label">Specialist Skills</div></div>
+      <div class="stat-card"><div class="num">24/7</div><div class="label">Support Desk</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <div class="container about-grid">
+    <div class="about-visual">
+      <div class="about-card">
+        <h4>Our Mission</h4>
+        <p>Give every business — from solo founders to growing teams — a single hub for the digital work that usually takes five different vendors.</p>
+      </div>
+      <div class="about-card">
+        <h4>Our Vision</h4>
+        <p>Become the go-to digital partner for brands that want speed, quality, and one dashboard to track it all.</p>
+      </div>
+    </div>
+    <div>
+      <span class="eyebrow">About VSR</span>
+      <h2>One hub, every digital service your brand needs</h2>
+      <p style="color:var(--text-muted); margin-top:16px; font-size:1rem;">
+        VSR Digital Hub was built on a simple idea: businesses shouldn't
+        have to juggle a designer, a developer, and a marketer who've
+        never spoken to each other. Our team works as one connected hub —
+        so your website, your brand, and your campaigns all move in the
+        same direction.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Talk to Us</a>
+        <a href="#process" class="btn btn-ghost">See How We Work</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="section section-alt" id="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What We Do</span>
+      <h2>Explore Our Expertise</h2>
+      <p>Every service below plugs straight into the hub — pick one or combine them into a single connected project.</p>
+    </div>
+
+    <div class="grid-3">
+      {% for service in services %}
+      <div class="card">
+        <div class="card-icon">{% include "core/_icon.html" with name=service.icon %}</div>
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description }}</p>
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="card-link">Request this service →</a>
+        {% else %}
+        <a href="{% url 'signup' %}" class="card-link">Join to request →</a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY JOIN ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why VSR</span>
+      <h2>Why Businesses Choose the Hub</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">{% include "core/_icon.html" with name="speed" %}</div>
+        <h3>Faster turnaround</h3>
+        <p>One coordinated team means fewer handoffs and quicker delivery on every request.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">{% include "core/_icon.html" with name="shield" %}</div>
+        <h3>Transparent pricing</h3>
+        <p>Clear scopes and honest quotes — no hidden fees once a project is underway.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">{% include "core/_icon.html" with name="dashboard" %}</div>
+        <h3>Your own dashboard</h3>
+        <p>Track every request you raise with VSR from a private customer panel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section section-alt" id="process">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">How It Works</span>
+      <h2>From Sign-up to Launch</h2>
+      <p>A straightforward path — because the order below genuinely reflects how a project moves through the hub.</p>
+    </div>
+    <div class="process-track">
+      <div class="process-step">
+        <div class="step-index">1</div>
+        <h4>Create an account</h4>
+        <p>Register in under a minute to open your customer panel.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-index">2</div>
+        <h4>Tell us the brief</h4>
+        <p>Raise a request from your dashboard with what you need.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-index">3</div>
+        <h4>We scope &amp; assign</h4>
+        <p>The right specialists inside the hub pick up your project.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-index">4</div>
+        <h4>Track &amp; launch</h4>
+        <p>Follow progress from request to completion, all in one place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFITS ============ -->
+<section class="section">
+  <div class="container">
+    <div class="split-panel">
+      <div class="split-visual">
+        {% include "core/_icon.html" with name="benefits" size="120" %}
+      </div>
+      <div class="split-copy">
+        <span class="eyebrow">Community Benefits</span>
+        <h3>What you get inside the hub</h3>
+        <ul class="benefit-list">
+          <li>A single dashboard to track every project and request</li>
+          <li>Direct access to design, development, and marketing specialists</li>
+          <li>Fixed, transparent quotes before any work begins</li>
+          <li>Priority support once you're a registered customer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Good to Know</span>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>How do I become a member of VSR Digital Hub?</summary>
+        <div class="faq-body">Click "Join Hub", fill in your details, and your account is created instantly — no approval wait.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Where can I track my project requests?</summary>
+        <div class="faq-body">Every request you raise appears on your customer dashboard along with its current status.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What services does VSR Digital Hub offer?</summary>
+        <div class="faq-body">Web development, UI/UX design, digital marketing, video editing, branding, and freelance community support — all listed above.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is my account information secure?</summary>
+        <div class="faq-body">Yes. Passwords are hashed and all account data is stored in a secured MySQL database, never in plain text.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section">
+  <div class="container">
+    <div class="cta-banner">
+      <span class="eyebrow">Join Community</span>
+      <h2>Become part of the VSR Digital Hub</h2>
+      <a href="{% url 'signup' %}" class="btn btn-primary">Join Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section section-alt" id="contact">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Get in Touch</span>
+      <h2>Contact VSR Digital Hub</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <div class="contact-line">
+          {% include "core/_icon.html" with name="mail" %}
+          <div><strong>Email</strong>hello@vsrdigitalhub.com</div>
+        </div>
+        <div class="contact-line">
+          {% include "core/_icon.html" with name="phone" %}
+          <div><strong>Phone</strong>+91 98765 43210</div>
+        </div>
+        <div class="contact-line">
+          {% include "core/_icon.html" with name="pin" %}
+          <div><strong>Office</strong>Tiruchirappalli, Tamil Nadu, India</div>
+        </div>
+      </div>
+
+      <form class="contact-form" method="post" action="{% url 'home' %}#contact">
+        {% csrf_token %}
+        <div class="form-row">
+          <div>
+            <label class="field-label">Name</label>
+            {{ contact_form.name }}
+          </div>
+          <div>
+            <label class="field-label">Email</label>
+            {{ contact_form.email }}
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label class="field-label">Phone</label>
+            {{ contact_form.phone_number }}
+          </div>
+          <div>
+            <label class="field-label">Subject</label>
+            {{ contact_form.subject }}
+          </div>
+        </div>
+        <div>
+          <label class="field-label">Message</label>
+          {{ contact_form.message }}
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

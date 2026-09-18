@@ -1,0 +1,74 @@
+{% extends "core/base.html" %}
+{% block title %}About Us — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow">About VSR</span>
+    <h1>One hub, every digital service your brand needs</h1>
+    <p>VSR Digital Hub was built on a simple idea: businesses shouldn't have to juggle a designer, a developer, and a marketer who've never spoken to each other.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container about-grid">
+    <div class="about-visual">
+      <div class="about-card">
+        <h4>Our Mission</h4>
+        <p>Give every business — from solo founders to growing teams — a single hub for the digital work that usually takes five different vendors.</p>
+      </div>
+      <div class="about-card">
+        <h4>Our Vision</h4>
+        <p>Become the go-to digital partner for brands that want speed, quality, and one dashboard to track it all.</p>
+      </div>
+      <div class="about-card" style="margin-bottom:0;">
+        <h4>Our Values</h4>
+        <p>Transparent pricing, honest timelines, and specialists who actually talk to each other before they talk to you.</p>
+      </div>
+    </div>
+    <div>
+      <span class="eyebrow">Our Story</span>
+      <h2>Built for founders tired of juggling vendors</h2>
+      <p style="color:var(--text-muted); margin-top:16px; font-size:1rem;">
+        VSR Digital Hub started as a small design studio and grew into a
+        connected team of designers, developers, and marketers working
+        under one roof. Instead of hiring a freelancer for your logo,
+        another for your website, and a third for your ads, VSR gives
+        you one hub, one dashboard, and one team that already knows
+        your brand.
+      </p>
+      <p style="color:var(--text-muted); margin-top:14px; font-size:1rem;">
+        Today, VSR supports businesses across design, development,
+        marketing, and content — with every request tracked from your
+        own customer panel.
+      </p>
+      <div class="hero-actions">
+        <a href="{% url 'team' %}" class="btn btn-primary">Meet the Team</a>
+        <a href="{% url 'contact' %}" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">The People Behind VSR</span>
+      <h2>Meet a Few of the Team</h2>
+    </div>
+    <div class="grid-3">
+      {% for member in team_members %}
+      <a href="{{ member.get_absolute_url }}" class="card team-card">
+        <div class="team-avatar">{{ member.initials }}</div>
+        <h3>{{ member.name }}</h3>
+        <p class="role">{{ member.role }}</p>
+        <p class="bio">{{ member.short_bio }}</p>
+      </a>
+      {% endfor %}
+    </div>
+    <div class="section-link-row">
+      <a href="{% url 'team' %}" class="btn btn-ghost">View Full Team →</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

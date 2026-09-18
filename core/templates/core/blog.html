@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+{% block title %}Blog — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Insights</span>
+    <h1>News &amp; Ideas from the Hub</h1>
+    <p>Notes on design, development, and marketing from the VSR team.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="blog-grid">
+      {% for post in posts %}
+      <a href="{{ post.get_absolute_url }}" class="blog-card">
+        <div class="blog-card-cover">{% include "core/_icon.html" with name="design" size=32 %}</div>
+        <div class="blog-card-body">
+          <span class="cat">{{ post.category }}</span>
+          <h3>{{ post.title }}</h3>
+          <p class="excerpt">{{ post.excerpt }}</p>
+          <div class="meta">{% if post.author %}{{ post.author.name }} · {% endif %}{{ post.published_at|date:"d M Y" }}</div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

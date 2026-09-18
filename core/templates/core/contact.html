@@ -1,0 +1,62 @@
+{% extends "core/base.html" %}
+{% block title %}Contact — VSR Digital Hub{% endblock %}
+
+{% block content %}
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Get in Touch</span>
+    <h1>Contact VSR Digital Hub</h1>
+    <p>Tell us about your project and we'll get back to you shortly.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container contact-grid">
+    <div class="contact-info">
+      <h3>Contact Information</h3>
+      <div class="contact-line">
+        {% include "core/_icon.html" with name="mail" %}
+        <div><strong>Email</strong>hello@vsrdigitalhub.com</div>
+      </div>
+      <div class="contact-line">
+        {% include "core/_icon.html" with name="phone" %}
+        <div><strong>Phone</strong>+91 98765 43210</div>
+      </div>
+      <div class="contact-line">
+        {% include "core/_icon.html" with name="pin" %}
+        <div><strong>Office</strong>Tiruchirappalli, Tamil Nadu, India</div>
+      </div>
+      <p style="color:var(--text-muted); font-size:0.88rem; margin-top:24px;">Prefer to ask something quick first? Check our <a href="{% url 'faq' %}" style="color:var(--cyan);">FAQ page</a>.</p>
+    </div>
+
+    <form class="contact-form" method="post">
+      {% csrf_token %}
+      <div class="form-row">
+        <div>
+          <label class="field-label">Name</label>
+          {{ form.name }}
+        </div>
+        <div>
+          <label class="field-label">Email</label>
+          {{ form.email }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label class="field-label">Phone</label>
+          {{ form.phone_number }}
+        </div>
+        <div>
+          <label class="field-label">Subject</label>
+          {{ form.subject }}
+        </div>
+      </div>
+      <div>
+        <label class="field-label">Message</label>
+        {{ form.message }}
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
