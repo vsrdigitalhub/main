@@ -6,31 +6,31 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+# Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load .env file
 load_dotenv(BASE_DIR / '.env')
 
-# -------------------------
+# =========================
 # SECURITY SETTINGS
-# -------------------------
+# =========================
 
 SECRET_KEY = os.environ.get(
     'DJANGO_SECRET_KEY',
     'django-insecure-o6=ymf$)8)6w#l=i-8+t&zzgbs8d#i5-t@b)z6f@k4xcgxxgnj'
 )
 
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '.onrender.com'
-]
+ALLOWED_HOSTS = os.environ.get(
+    'DJANGO_ALLOWED_HOSTS',
+    '.onrender.com,localhost,127.0.0.1'
+).split(',')
 
-# -------------------------
+# =========================
 # APPLICATIONS
-# -------------------------
+# =========================
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
 ]
+
+# =========================
+# MIDDLEWARE
+# =========================
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +57,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'vsr_project.urls'
+
+# =========================
+# TEMPLATES
+# =========================
 
 TEMPLATES = [
     {
@@ -71,37 +79,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vsr_project.wsgi.application'
 
-# -------------------------
-# DATABASE (FIXED FOR RENDER)
-# -------------------------
+# =========================
+# DATABASE (PRODUCTION READY)
+# =========================
 
-if os.environ.get("RENDER"):
-    # Render → SQLite (no external DB needed)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_NAME', 'vsr_digital_hub'),
+        'USER': os.environ.get('DB_USER', 'root'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '3306'),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
-else:
-    # Local MySQL
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('DB_NAME', 'vsr_digital_hub'),
-            'USER': os.environ.get('DB_USER', 'root'),
-            'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-            'HOST': os.environ.get('DB_HOST', 'localhost'),
-            'PORT': os.environ.get('DB_PORT', '3306'),
-            'OPTIONS': {
-                'charset': 'utf8mb4',
-            },
-        }
-    }
+}
 
-# -------------------------
-# VALIDATIONS
-# -------------------------
+# =========================
+# VALIDATION
+# =========================
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -110,18 +108,18 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# -------------------------
+# =========================
 # INTERNATIONALIZATION
-# -------------------------
+# =========================
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# -------------------------
-# STATIC + MEDIA
-# -------------------------
+# =========================
+# STATIC / MEDIA
+# =========================
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'core' / 'static']
@@ -130,9 +128,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# -------------------------
+# =========================
 # CUSTOM USER MODEL
-# -------------------------
+# =========================
 
 AUTH_USER_MODEL = 'core.CustomUser'
 
@@ -140,8 +138,8 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'home'
 
-# -------------------------
+# =========================
 # DEFAULT AUTO FIELD
-# -------------------------
+# =========================
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
