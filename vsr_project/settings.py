@@ -20,12 +20,13 @@ SECRET_KEY = os.environ.get(
     'django-insecure-o6=ymf$)8)6w#l=i-8+t&zzgbs8d#i5-t@b)z6f@k4xcgxxgnj'
 )
 
-DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get(
-    'DJANGO_ALLOWED_HOSTS',
-    '.onrender.com,localhost,127.0.0.1'
-).split(',')
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.onrender.com'
+]
 
 # -------------------------
 # APPLICATIONS
@@ -75,7 +76,7 @@ WSGI_APPLICATION = 'vsr_project.wsgi.application'
 # -------------------------
 
 if os.environ.get("RENDER"):
-    # Render deployment → use SQLite (safe & works instantly)
+    # Render → SQLite (no external DB needed)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
